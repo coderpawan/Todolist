@@ -7,7 +7,7 @@ if (window.localStorage.getItem("todos") == undefined) {
     window.localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-var todosEX = window.localStorage.getItem("todos");
+var todosEX = window.localStorage.getItem("todos"); 
 var todos = JSON.parse(todosEX);
 
 
