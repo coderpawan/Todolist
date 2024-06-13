@@ -1,25 +1,841 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Priya's- Startup</title>
 
-<head>
-    <link rel='stylesheet' type='text/css' media='screen' href='Todolist.css'>
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-</head> 
+    <!-- font awesome css -->
+    <!-- <link
+      rel="stylesheet"
+      href="style.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> -->
 
-<body>
-    <h1><span class="title">Todo</span>List</h1>
-    <section class="todolist">
-    <div class="inputDiv">
-        <input type="text" class="input" placeholder="Add the Task you have to do...">
-        <button class="add"><i class="fas fa-plus"></i></button>
-    </div>
-    <div class="container">
-    </div>
-    <section class="mickymouse"><img src="mickymouse.png" alt="mickymouse"></section>
-</section>
-    <script src='Todolist.js'></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;1,100;1,300&display=swap");
 
-</body>
+      * {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: 0.2s linear;
+      }
 
+      :root {
+        --primary-color: #6f42c1;
+        --white: #fff;
+        --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        --gray: #808080;
+        --light-gray: #eee;
+      }
 
+      html {
+        font-size: 62.5%;
+        scroll-behavior: smooth;
+        scroll-padding-top: 7.5rem;
+      }
+
+      section {
+        padding: 5rem 9%;
+      }
+
+      .heading {
+        font-size: 3.5rem;
+        letter-spacing: 0.2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 2rem;
+      }
+
+      .heading::after {
+        content: "";
+        position: absolute;
+        border-bottom: 0.2rem solid var(--primary-color);
+        width: 10rem;
+        bottom: 1rem;
+        left: 50%;
+        display: inline-block;
+        margin-left: -5rem;
+      }
+
+      /* home */
+      .home {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
+          url("images/hero.jpg") no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .home h1 {
+        color: var(--white);
+        font-size: 8rem;
+        text-align: center;
+        letter-spacing: 0.2rem;
+      }
+      /* home */
+
+      /* header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem 9%;
+        display: flex;
+        align-items: center;
+        z-index: 100;
+      }
+      .list {
+        color: #808080;
+        font-size: 1.5rem;
+      }
+
+      .header.active {
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: var(--box-shadow);
+      }
+
+      .header .logo {
+        font-size: 2.5rem;
+        color: var(--white);
+        letter-spacing: 0.5rem;
+        margin-right: auto;
+      }
+
+      .header .navbar a {
+        font-size: 2rem;
+        color: var(--white);
+        margin-left: 2rem;
+        font-weight: 300;
+      }
+
+      .header .menu {
+        font-size: 2.5rem;
+        color: var(--white);
+        cursor: pointer;
+        display: none;
+      }
+
+      .header .navbar a:hover {
+        color: var(--primary-color);
+      }
+      /* header */
+
+      /* about */
+      .about .box-container .box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .about .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        gap: 2rem;
+      }
+
+      .about .box-container .box p {
+        font-size: 1.5rem;
+        line-height: 2;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1rem;
+        color: var(--gray);
+        text-transform: none;
+      }
+      /* about */
+
+      /* team */
+      .team {
+        background-color: var(--light-gray);
+      }
+
+      .team .box-container .box .image {
+        height: 40rem;
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .team .box-container .box .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .team .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 3rem;
+      }
+
+      .team .box-container .box {
+        background-color: var(--white);
+        box-shadow: var(--box-shadow);
+      }
+
+      .team .box-container .box .info {
+        text-align: center;
+      }
+
+      .team .box-container .box .info h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .team .box-container .box .info p {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+        line-height: 2;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1rem;
+        color: var(--gray);
+        text-transform: none;
+      }
+
+      .team .box-container .box .image img:hover {
+        transform: scale(1.1);
+      }
+      /* team */
+
+      /* services */
+      .services .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 5rem;
+      }
+
+      .services .box-container .box {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: var(--box-shadow);
+        padding: 1.5rem;
+      }
+
+      .services .box-container .box:hover {
+        box-shadow: none;
+      }
+
+      .services .box-container .box ion-icon {
+        font-size: 6rem;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+      }
+
+      .services .box-container .box span {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .services .box-container .box p {
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+        color: var(--gray);
+        line-height: 2;
+      }
+      /* services */
+
+      /* projects */
+      .projects {
+        background-color: var(--light-gray);
+      }
+
+      .projects .box-container .box .image {
+        position: relative;
+        overflow: hidden;
+        height: 40rem;
+      }
+
+      .projects .box-container .box .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .projects .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 5rem;
+      }
+
+      .projects .box-container .box .image .overlay {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transform: translateY(-40rem);
+      }
+
+      .projects .box-container .box .image .overlay h3 {
+        font-size: 2rem;
+        color: var(--white);
+        margin-bottom: 1rem;
+      }
+
+      .projects .box-container .box .image .overlay span {
+        font-size: 1.5rem;
+        color: var(--gray);
+      }
+
+      .projects .box-container .box:hover .image .overlay {
+        transform: translateY(0);
+      }
+      /* projects */
+
+      /* contact */
+      .contact .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+      }
+
+      .contact .box-container .box .form-group ion-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+      }
+
+      .contact .box-container .box .form-group span {
+        font-size: 2rem;
+        margin-left: 1rem;
+      }
+
+      .contact .box-container .box .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .contact .box-container .box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      .contact .box-container .box input {
+        border: 0.1rem solid #000;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact .box-container .box textarea {
+        border: 0.1rem solid #000;
+        padding: 1rem;
+      }
+
+      .contact .box-container .box button {
+        margin-top: 1rem;
+        padding: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .contact .box-container .box button:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+      /* contact */
+
+      /* footer */
+      .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-top: 0.2rem solid var(--light-gray);
+      }
+
+      .footer .socials ion-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        background-color: var(--light-gray);
+        border-radius: 50%;
+        padding: 1rem;
+        margin-right: 1.5rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+      }
+
+      .footer .socials ion-icon:hover {
+        background-color: var(--primary-color);
+        color: var(--light-gray);
+      }
+
+      /* .footer .copyright p {
+  font-size: 1.5rem;
+} */
+      /* footer */
+
+      /* media queries */
+      @media (max-width: 1200px) {
+        .header {
+          padding: 2rem;
+        }
+
+        section {
+          padding: 3rem 2rem;
+        }
+      }
+
+      @media (max-width: 991px) {
+        html {
+          font-size: 60%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header .navbar {
+          position: fixed;
+          top: 7rem;
+          left: 0;
+          right: 0;
+          background-color: var(--white);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-shadow: var(--box-shadow);
+          transform: translateX(-90rem);
+        }
+
+        .header .navbar.show {
+          transform: translateX(0);
+        }
+
+        .header .navbar a {
+          color: #000;
+          margin: 0;
+          font-size: 2rem;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .header .menu {
+          display: block;
+        }
+
+        .header .menu.rotate {
+          transform: rotate(90deg);
+        }
+
+        .home h1 {
+          font-size: 6rem;
+        }
+      }
+
+      @media (max-width: 450px) {
+        html {
+          font-size: 55%;
+        }
+
+        .home h1 {
+          font-size: 4rem;
+        }
+
+        .heading {
+          font-size: 3rem;
+        }
+      }
+      /* media queries */
+    </style>
+
+    <!-- local css file -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header">
+      <a href="#" class="logo">Mishu's TechnoSERVICES</a>
+
+      <a class="menu fas fa-bars"></a>
+
+      <nav class="navbar">
+        <a href="#">home</a>
+        <a href="#about">about</a>
+        <a href="#services">services</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </header>
+    <!-- header -->
+
+    <!-- home section -->
+    <section id="home" class="home">
+      <h1>
+        Mishu's TechnoSERVICES <br />
+        <p>Choose the best...</p>
+      </h1>
+    </section>
+    <!-- home section -->
+
+    <!-- about section -->
+    <section id="about" class="about">
+      <div class="box-container">
+        <div class="box">
+          <h2 class="heading">company history</h2>
+          <p>
+            Welcome to Mishu's TechnoSERVICES, a leading innovator in the IT
+            industry. We are dedicated to providing cutting-edge technology
+            solutions that drive business success and enhance the digital
+            experience. Our mission is to empower businesses with the tools and
+            expertise they need to thrive in a rapidly evolving digital
+            landscape.
+          </p>
+        </div>
+
+        <div class="box">
+          <img
+            src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/444446161_2274034282941632_8708702766031141135_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=y2piPXf_A0MQ7kNvgHYFAUp&_nc_ht=scontent.frdp3-1.fna&oh=00_AYDNDYNgEbhmpYjTTEexO8wIofkCFfLYu1usCebZZqpUIQ&oe=665E8D5E"
+            alt=""
+          />
+        </div>
+      </div>
+    </section>
+    <!-- about section -->
+
+    <!-- team section -->
+    <section id="team" class="team">
+      <h2 class="heading">meet our team</h2>
+      <div class="box-container">
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/444925359_2274035636274830_5934341439308296019_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=-3buraOt7rUQ7kNvgHJR8ML&_nc_ht=scontent.frdp3-1.fna&oh=00_AYBMgW8nviFKd8myFTarwIpoTzk8HN7mNuRZkxWJK1hiMA&oe=665E6E04"
+              alt=""
+            />
+          </div>
+          <div class="info">
+            <h3>"Priya Paul"</h3>
+            <p>
+              MD & Chairman & Owner & CEO(Chief Executive Officer) Of Mishu's
+              TechnoSERVICES
+            </p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/444960096_2274040706274323_1941463148971054334_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=SYuvTdh8KcQQ7kNvgHgWy9n&_nc_ht=scontent.frdp3-1.fna&oh=00_AYCuxfXGevg0_BI6YMcmQ3GGGiKJrjQsglZjVlKBtNjTcQ&oe=665E65ED"
+              alt=""
+            />
+          </div>
+          <div class="info">
+            <h3>Debraj Kumar Sahoo</h3>
+            <p>
+              Senior Auditor & Chief Marketing Officer (CMO) at Mishu's
+              TechnoSERVICES.
+            </p>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/444923769_2274040686274325_3758016572068225514_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=2CA6itFdoZQQ7kNvgE-ImCe&_nc_ht=scontent.frdp3-1.fna&oh=00_AYCQraghEOI1aINZZ_QBFKkEp33kKt_F9iRra4n6MmD_Dw&oe=665E8735"
+              alt=""
+            />
+          </div>
+          <div class="info">
+            <h3>Shanu Mishra</h3>
+            <p>
+              Chief Technology Officer (CTO) Software Developer/Engineer IT
+              Support Specialist at Mishu's TechnoSERVICES & the former senior
+              Webdesigner of TATA Consultancy Services.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- team section -->
+
+    <!-- service section -->
+    <section id="services" class="services">
+      <h2 class="heading">
+        our All services
+        <p>We provide all types of IT services with other services.</p>
+      </h2>
+      <div class="box-container">
+        <div class="box">
+          <ion-icon name="navigate-outline"></ion-icon>
+          <span>branding</span>
+          <p>
+            At Mishu's TechnoSERVICES, we specialize in crafting impactful
+            branding strategies that elevate your business and create lasting
+            impressions. Our expert team works with you to develop a cohesive
+            brand identity and strategy that aligns with your business goals and
+            resonates with your audience.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="medal-outline"></ion-icon>
+          <span>web design</span>
+          <p>
+            At Mishu's TechnoSERVICES, we specialize in creating stunning and
+            functional websites that not only capture your brand’s essence but
+            also provide an exceptional user experience. Our expert web design
+            team combines creativity with the latest technology to deliver
+            websites that are visually appealing, easy to navigate, and
+            optimized for performance.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="flame-outline"></ion-icon>
+          <span>app design</span>
+          <p>
+            At Mishu's TechnoSERVICES, we specialize in designing intuitive and
+            engaging mobile applications that provide an exceptional user
+            experience. Our expert app design team combines creativity with
+            cutting-edge technology to deliver apps that are not only visually
+            stunning but also highly functional and user-friendly.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="cloud-outline"></ion-icon>
+          <span>Cloud Services</span>
+          <p>
+            At Mishu's TechnoSERVICES, we are dedicated to empowering your
+            business to thrive in the cloud. Let us craft an app that not only
+            dazzles but also ignites user interaction, propelling your business
+            toward its objectives. Reach out today to embark on your cloud
+            journey with us!
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="shield"></ion-icon>
+          <span>Cybersecurity Solutions</span>
+          <p>
+            We understand the critical importance of protecting your sensitive
+            data and infrastructure. Our expert team employs cutting-edge
+            technologies and industry best practices to fortify your defenses
+            and mitigate risks effectively.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="bar-chart"></ion-icon>
+          <span>Data Analytics and Business Intelligence</span>
+          <p>
+            At Mishu's TechnoSERVICES, we leverage cutting-edge Data Analytics
+            and Business Intelligence (BI) to drive informed decision-making and
+            strategic growth. By harnessing the power of data, we transform raw
+            information into actionable insights that enhance our operational
+            efficiency and competitive edge.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="paper-plane-outline"></ion-icon>
+          <span>email marketing</span>
+          <p>
+            At Mishu's TechnoSERVICES, we utilize strategic Email Marketing to
+            engage with our audience, build lasting relationships, and drive
+            business growth. Through personalized and targeted email campaigns,
+            we connect with our customers in a meaningful way, delivering
+            valuable content that resonates with their needs and interests.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="bag-outline"></ion-icon>
+          <span>shopping cart</span>
+          <p>
+            At Mishu's TechnoSERVICES, we offer a seamless and intuitive
+            Shopping Cart experience designed to enhance customer satisfaction
+            and streamline the purchasing process. Our Shopping Cart
+            functionality is a critical component of our e-commerce platform,
+            providing users with a convenient and efficient way to manage their
+            purchases.
+          </p>
+        </div>
+
+        <div class="box">
+          <ion-icon name="color-palette"></ion-icon>
+          <span>UI/UX Design</span>
+          <p>
+            At Mishu's TechnoSERVICES, we prioritize exceptional UI/UX design to
+            create engaging, intuitive, and enjoyable experiences for our users.
+            Our commitment to outstanding design principles ensures that every
+            interaction with our products is seamless and satisfying.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- service section -->
+
+    <!-- projects section -->
+    <section id="projects" class="projects">
+      <h2 class="heading">our projects</h2>
+      <div class="box-container">
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://images.template.net/wp-content/uploads/2016/10/27064333/Abstract-Brand-Identity-Design.jpg"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>Brand Identity Design</h3>
+              <span>Brand Identity Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/444486801_2274620562883004_7017275740725093505_n.jpg?stp=dst-jpg_p180x540&_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=U3lKYnq_R8MQ7kNvgFvkpPZ&_nc_ht=scontent.frdp3-1.fna&oh=00_AYAFpLkrOK-lriwmMcwtm-UOukiiuy_2r0DcOM7Q9J490A&oe=665F8B7B"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>DesignVista</h3>
+              <span>Web design Agency</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-6/428685728_2274622166216177_2211729873956261191_n.jpg?stp=dst-jpg_p180x540&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=VvIUM5nIzNkQ7kNvgFY-TLo&_nc_ht=scontent.frdp3-1.fna&oh=00_AYDMAlvxuvVWRW9mhoOSajV0r2C170yvxB7293DrqNuMcA&oe=665FA0CA"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>Lumina: Enlightening Wellness App</h3>
+              <span>holistic wellness and mental well-being</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://www.simplilearn.com/ice9/free_resources_article_thumb/What_are_the_Types_of_Cloud_Computing_and_Cloud_Services.jpg"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>CloudVantage: Elevating Your Business to New Heights</h3>
+              <span>Small and Medium Enterprises (SMEs)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://5.imimg.com/data5/SELLER/Default/2021/4/YM/AF/BW/125951646/cyber-security-solutions-service.png"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>SecureGuard: Fortifying Your Digital Defenses</h3>
+              <span>Government Agencies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="image">
+            <img
+              src="https://media.sproutsocial.com/uploads/2021/08/email-marketing-featured-image.jpg"
+              alt=""
+            />
+            <div class="overlay">
+              <h3>InboxBoost: Elevating Your Email Campaigns</h3>
+              <span>E-mail Marketing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- projects section -->
+
+    <!-- contact section -->
+    <section id="contact" class="contact">
+      <h2 class="heading">contact us</h2>
+      <div class="box-container">
+        <div class="box">
+          <div class="form-group">
+            <ion-icon name="location-outline"></ion-icon>
+            <span
+              >Bira, Purbba Narayanpur,<br />
+              North 24 PGS- 743234
+            </span>
+          </div>
+
+          <div class="form-group">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>+91 6295053193</span>
+          </div>
+
+          <div class="form-group">
+            <ion-icon name="mail-outline"></ion-icon>
+            <span>info@mishu.com</span>
+          </div>
+        </div>
+
+        <div class="box">
+          <input type="text" placeholder="name" />
+          <input type="text" placeholder="email" />
+          <textarea
+            placeholder="message"
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+          ></textarea>
+          <button>submit</button>
+        </div>
+      </div>
+    </section>
+    <!-- contact section -->
+
+    <!-- footer section -->
+    <section id="footer" class="footer">
+      <div class="socials">
+        <ion-icon name="logo-google"></ion-icon>
+        <ion-icon name="logo-snapchat"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-youtube"></ion-icon>
+        <ion-icon name="logo-linkedin"></ion-icon>
+      </div>
+    </section>
+    <!-- footer section -->
+
+    <!-- ionicons js files -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- local js file -->
+    <script src="project.js"></script>
+  </body>
 </html>
